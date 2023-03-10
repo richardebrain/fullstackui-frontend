@@ -1,7 +1,7 @@
 import axios from "axios";
 import { APIResponse } from "./types";
 
-const ProductionUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:5000";
 
 const headers = () => {
   return { "Content-Type": "application/json", Accept: "application/json" };
@@ -17,8 +17,8 @@ const authHeader = () => {
 const parseResponse = (response: any): APIResponse => {
   return response;
 };
-const parseError = (error: { response: any; message: any; }): APIResponse => {
-  console.log(error, "error.message")
+const parseError = (error: { response: any; message: any }): APIResponse => {
+  console.log(error, "error.message");
   return {
     status: false,
     message: error.response.data.message || error.message,
@@ -29,7 +29,7 @@ const parseError = (error: { response: any; message: any; }): APIResponse => {
 const api = {
   fetch(url: string, params: {}, auth = false): Promise<APIResponse> {
     return axios
-      .get<APIResponse>(`${ProductionUrl}${url}`, {
+      .get<APIResponse>(`${BASE_URL}${url}`, {
         headers: auth ? authHeader() : headers(),
         // validateStatus: (status) => status >= 200 && status < 500,
       })
@@ -40,7 +40,7 @@ const api = {
   post(url: string, data: any, auth = false): Promise<APIResponse> {
     const body = data;
     return axios
-      .post<APIResponse>(`${ProductionUrl}${url}`, body, {
+      .post<APIResponse>(`${BASE_URL}${url}`, body, {
         headers: auth ? authHeader() : headers(),
         // validateStatus: (status) => status >= 200 && status < 500,
       })
@@ -52,7 +52,7 @@ const api = {
     const body = data;
 
     return axios
-      .put<APIResponse>(`${ProductionUrl}${url}`, body, {
+      .put<APIResponse>(`${BASE_URL}${url}`, body, {
         headers: auth ? authHeader() : headers(),
         // validateStatus: (status) => status >= 200 && status < 500,
       })
@@ -61,7 +61,7 @@ const api = {
   },
   delete(url: string, auth = false): Promise<APIResponse> {
     return axios
-      .delete<APIResponse>(`${ProductionUrl}${url}`, {
+      .delete<APIResponse>(`${BASE_URL}${url}`, {
         headers: auth ? authHeader() : headers(),
         // validateStatus: (status) => status >= 200 && status < 500,
       })
