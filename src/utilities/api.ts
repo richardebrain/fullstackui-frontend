@@ -1,7 +1,7 @@
 import axios from "axios";
 import { APIResponse } from "./types";
 
-const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 const headers = () => {
   return { "Content-Type": "application/json", Accept: "application/json" };
