@@ -19,13 +19,13 @@ module.exports = {
         "primary-btn-bg": "rgba(127, 86, 217, 1)",
         "primary-purple-text": "rgba(105, 65, 198, 1)",
       },
-      backgroundImage:{
-        'hero-sign': "url('/src/assets/sign/hero.jpeg')",
-      }
+      backgroundImage: {
+        "hero-sign": "url('/src/assets/sign/hero.jpeg')",
+      },
     },
-    fontFamily:{
-      'inter': ['Inter', 'sans-serif'],
-    }
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+    },
   },
   plugins: [],
 };

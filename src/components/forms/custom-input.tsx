@@ -35,8 +35,9 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, disabled, regist
         <input
           type={showPassword ? 'text' : type}
           {...otherProps}
+          id={name}
           {...register(name)}
-          className={`outline-none bg-white pt-3 focus:border-black text-black rounded-md px-2 placeholder:text-black h-12 border border-gray-400 ${className}} ${error ? ' focus:border-red-500 border-red-500' : ''}`}
+          className={`outline-none bg-purple-100 p-1  duration-500 text-black rounded-md  placeholder:text-purple-500 h-12 border-2 border-gray-400 focus:border-primary-btn-bg focus:bg-white ${className}} ${error ? ' focus:border-red-500 border-red-500' : ''}`}
           {...touched && error && { className: 'border-red-500' }}
           disabled={disabled}
         />

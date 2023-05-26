@@ -1,7 +1,8 @@
 import axios from "axios";
 import { APIResponse } from "./types";
 
-const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+// const BASE_URL =  import.meta.env.VITE_REACT_APP_API_URL;
+const BASE_URL = "http://localhost:5000";
 
 const headers = () => {
   return { "Content-Type": "application/json", Accept: "application/json" };
@@ -15,10 +16,13 @@ const authHeader = () => {
   };
 };
 const parseResponse = (response: any): APIResponse => {
-  return response;
+  return {
+    status: true,
+    message: response.statusText,
+    data: response.data,
+  }
 };
 const parseError = (error: { response: any; message: any }): APIResponse => {
-  console.log(error, "error.message");
   return {
     status: false,
     message: error.response.data.message || error.message,

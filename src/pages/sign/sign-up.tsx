@@ -1,4 +1,5 @@
 import CustomInput from '@/components/forms/custom-input';
+import Spinner from '@/components/spinner/Spinner';
 import api from '@/utilities/api';
 import React from 'react'
 import { useForm } from 'react-hook-form';
@@ -13,7 +14,10 @@ type FormData = {
 
 const SignUp = () => {
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors, touchedFields }, reset } = useForm<FormData>()
+    const { register, handleSubmit, formState: { errors, touchedFields, isSubmitting }, reset } = useForm<FormData>({
+        mode: 'onChange',
+
+    })
 
     const onSubmit = async (values: FormData) => {
         const { name, password, confirmPassword, email } = values;
@@ -21,10 +25,11 @@ const SignUp = () => {
         try {
 
             const { data, status, message } = await api.post('/auth/signup', values);
-            navigate('/')
-            console.log(data, 'result')
-
-            reset()
+            if (status) {
+                navigate('/')
+                reset()
+            }
+            console.log(message, 'result')
         }
         catch (err) {
             console.log(err, 'error')
@@ -94,23 +99,24 @@ const SignUp = () => {
                             />
                         </div>
                     </div>
-                    <div className='flex gap-4'>
-                        <p>Remember for 30 days</p>
-                        <Link to={''}>Forget Password</Link>
 
-                    </div>
                     <div className='flex flex-col gap-4'>
 
-                        <button type='submit' className='border bg-primary-btn-bg py-2 px-4 rounded-md text-white'>Sign up</button>
-                        <button type='submit' className='border bg-primary-btn-bg py-2 px-4 rounded-md text-white'>Sign in with Google</button>
+                        <button type='submit' className='border bg-primary-btn-bg py-2 px-4 rounded-md text-white'>
+                            {
+                                isSubmitting ?
+                                    <Spinner fill='white' className='animate-spin text-center w-6 inline-block' /> : 'Get started'
+                            }
+                        </button>
+                        <button type='submit' className='border-2 bg-hwite-bg py-2 px-4 rounded-md text-gray-700'>Sign up with Google</button>
                     </div>
 
-                    <p>Already have an account ? <Link to='/'>Sign in</Link> </p>
+                    <p className='text-center text-gray-600'>Already have an account ? <Link to='/' className='text-primary-btn-bg font-semibold'>Log in</Link> </p>
                 </form>
             </div>
             {/* hero image */}
             <div className=' w-3/5 h-[100vh]'>
-                <div className={` bg-hero-sign  bg-center  w-full h-full bg-no-repeat bg-cover`}>
+                <div className={` bg-hero-sign  bg-center  w-full h-full bg-no-repeat bg-cover rounded-l-[90px]`}>
 
                 </div>
             </div>
